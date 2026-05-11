@@ -16,11 +16,12 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const token = (await cookies()).get("token")?.value;
-  if (!token) {
+  console.log("AdminLayout token:", token);
+/*   if (!token) {
     redirect("/login");
-  }
+  } */
 
-  try {
+  /* try {
     const user: any = jwt.verify(token, process.env.JWT_SECRET!);
     if (user.role !== "admin") {
       redirect("/admin");
@@ -28,7 +29,7 @@ export default async function AdminLayout({
   } catch(error) {
     console.error("Error verifying token:", error);
     redirect("/login");
-  }
+  } */
   return (
     /*    <AdminGuard> */
     <AdminShell>{children}</AdminShell>
