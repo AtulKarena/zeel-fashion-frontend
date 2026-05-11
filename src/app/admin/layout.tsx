@@ -16,11 +16,8 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const token = (await cookies()).get("token")?.value;
-  console.log("AdminLayout token:", token);
   if (!token) {
-    // redirect("/login");
-    console.log("AdminLayout token:", token);
-    return;
+    redirect("/login");
   }
 
   try {
@@ -28,7 +25,7 @@ export default async function AdminLayout({
     if (user.role !== "admin") {
       redirect("/admin");
     }
-  } catch (error) {
+  } catch(error) {
     console.error("Error verifying token:", error);
     redirect("/login");
   }
