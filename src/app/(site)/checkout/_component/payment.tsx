@@ -9,7 +9,7 @@ import { useCart } from "@/context/cart-context";
 import { useAuth } from "@/context/auth-context";
 import { redirect } from "next/navigation";
 
-export default function PaymentPage() {
+export default function Payment() {
   const params = useSearchParams();
   const orderId = params.get("orderId");
   const router = useRouter();
