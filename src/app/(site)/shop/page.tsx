@@ -1,5 +1,8 @@
 ﻿import { Metadata } from "next";
+import { Suspense } from "react";
+import Loading from "@/components/loading";
 import Shop from "./_component/shop";
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `Shop - Zeel Fashion`,
@@ -7,7 +10,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const ShopPage = async () => {
-  return <Shop />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <Shop />
+    </Suspense>
+  );
 };
 
 export default ShopPage;
