@@ -38,6 +38,7 @@ export const useLogin = () => {
       toast.error(error.message);
     },
     onSuccess: async (data) => {
+      console.log("Login successful, user data:", data.data.role);
       if (data.data.role === "admin") {
         router.push("/admin");
         return;
