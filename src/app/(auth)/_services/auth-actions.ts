@@ -1,7 +1,7 @@
 import authSchema from "../../../services/auth/auth-schema";
 import { z } from "zod";
 import API from "@/services/api";
-
+import { serverFetch } from "@/lib/server-fetch";
 /* const signup = async (body: z.infer<typeof authSchema.signUpSchema>) => {
   const response = await API.post();
 
@@ -14,7 +14,7 @@ import API from "@/services/api";
   return data;
 }; */
 
-const login = async (body: z.infer<typeof authSchema.loginSchema>) => {
+/* const login = async (body: z.infer<typeof authSchema.loginSchema>) => {
   try {
     const response = await API.post("/auth/login", body, {
       withCredentials: true,
@@ -28,9 +28,27 @@ const login = async (body: z.infer<typeof authSchema.loginSchema>) => {
     // fallback
     throw new Error("Something went wrong");
   }
+}; */
+const login = async (body: z.infer<typeof authSchema.loginSchema>) => {
+  try {
+    // Calls Next.js route handler — not Express directly
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.message);
+
+    return { data }; // keep same shape so hooks don't break
+  } catch (error: any) {
+    throw new Error(error.message ?? "Something went wrong");
+  }
 };
 
-const logout = async () => {
+/* const logout = async () => {
   try {
     await API.post("/auth/logout");
 
@@ -42,6 +60,14 @@ const logout = async () => {
     }
     // fallback
     throw new Error("Something went wrong");
+  }
+}; */
+const logout = async () => {
+  try {
+    await fetch("/api/auth/logout", { method: "POST" });
+    return true;
+  } catch {
+    throw new Error("Logout failed");
   }
 };
 

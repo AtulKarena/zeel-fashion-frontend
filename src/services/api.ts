@@ -2,7 +2,6 @@ import axios from "axios";
 
 const API = axios.create({
   baseURL: "https://zeel-fashion-backend.vercel.app/api",
-   withCredentials: true,  
 });
 
 // Attach JWT token
