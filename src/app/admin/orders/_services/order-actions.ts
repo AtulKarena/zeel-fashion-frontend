@@ -31,8 +31,8 @@ const getOrderById = async (id: string) => {
     const response = await serverFetch(`/orders/${id}`, {
       method: "GET",
     });
-    console.log("Fetched order response:", response); // Debug log to inspect the response structure
-    return response;
+    console.log("Fetched order response:", response.data); // Debug log to inspect the response structure
+    return response.data;
   } catch (error: any) {
     console.error("Error fetching order:", error);
     if (error.response && error.response.data) {
