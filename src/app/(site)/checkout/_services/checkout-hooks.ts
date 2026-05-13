@@ -45,7 +45,6 @@ export const useOrderAdd = () => {
   const onSubmit = async (
     body: z.infer<typeof checkoutSchema.createOrderSchema>,
   ) => {
-    console.log("Submitting order with body:", body); // Debug log to inspect the form data
     mutate(body);
   };
 
