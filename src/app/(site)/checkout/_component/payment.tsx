@@ -32,6 +32,7 @@ export default function Payment() {
   };
 
   const handleOnlinePayment = async () => {
+    console.log("Initiating online payment for order:", orderId, "with total:", total); // Debug log to inspect the order details
     serverFetch("/payment/create-order", {
       method: "POST",
       body: JSON.stringify({ orderId, amount: total }),
