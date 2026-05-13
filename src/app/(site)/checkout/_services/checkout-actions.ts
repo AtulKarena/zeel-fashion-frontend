@@ -5,6 +5,7 @@ import { serverFetch } from "@/lib/server-fetch";
 const createOrder = async (
   body: z.infer<typeof checkoutSchema.createOrderSchema>,
 ) => {
+  console.log("Creating order with body:", body); // Debug log to inspect the request body
   try {
     const response = await serverFetch("/orders", {
       method: "POST",
