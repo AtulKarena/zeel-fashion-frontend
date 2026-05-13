@@ -7,7 +7,7 @@ import { useProductById } from "@/app/admin/products/_services/product-hooks";
 export default function CartItem({ line }: { line: CartLine }) {
   const { updateQuantity, removeItem } = useCart();
   const { product, isLoading } = useProductById(line.productId);
-
+  console.log("CartItem product:", product);
   if (isLoading || !product) {
     return (
       <div className="flex flex-col gap-4 rounded-3xl border border-black/5 bg-white p-5 shadow-sm md:flex-row md:items-center md:justify-between animate-pulse">
