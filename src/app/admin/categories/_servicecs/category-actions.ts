@@ -30,6 +30,7 @@ const getCategories = async (page: number, limit: number, search: string) => {
       `/categories?page=${page}&limit=${limit}&search=${search}`,
       { method: "GET" },
     );
+    console.log("Fetched categories response:", response); // Debug log to inspect the response structure
     if (!response.data.success) {
       throw new Error(response.data.message || "Failed to fetch categories");
     }
