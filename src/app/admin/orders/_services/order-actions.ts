@@ -23,7 +23,7 @@ const deleteProduct = async (id: string) => {
     method: "DELETE",
   });
 
-  return response.data;
+  return response;
 };
 
 const getOrderById = async (id: string) => {
