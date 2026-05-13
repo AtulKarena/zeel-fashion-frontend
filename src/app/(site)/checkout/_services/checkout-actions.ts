@@ -10,8 +10,7 @@ const createOrder = async (
       method: "POST",
       body: JSON.stringify(body),
     });
-    console.log("Order creation response:", response); // Debug log to inspect the response structure
-    return response.data;
+    return response;
   } catch (error: any) {
     console.error("Error during login:", error);
     if (error.response && error.response.data) {
