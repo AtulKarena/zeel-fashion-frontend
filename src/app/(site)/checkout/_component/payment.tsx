@@ -32,18 +32,18 @@ export default function Payment() {
   };
 
   const handleOnlinePayment = async () => {
-    console.log("Initiating online payment for order:", orderId, "with total:", total); // Debug log to inspect the order details
     serverFetch("/payment/create-order", {
       method: "POST",
       body: JSON.stringify({ orderId, amount: total }),
     })
       .then((data) => {
+console.log("Payment order response:", data); // Debug log to inspect the response structure
         setItems([]);
         const options = {
           key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-          amount: data.data.amount,
+          amount: data.amount,
           currency: "INR",
-          order_id: data.data.razorpayOrderId,
+          order_id: data.razorpayOrderId,
 
           name: "Zeel Fashion",
           description: "Order Payment",
@@ -55,7 +55,7 @@ export default function Payment() {
             })
               .then((data) => {
                 router.push(
-                  `/checkout/success?session_id=${data.data.session_id}`,
+                  `/checkout/success?session_id=${data.session_id}`,
                 );
               })
               .catch((error) => {
