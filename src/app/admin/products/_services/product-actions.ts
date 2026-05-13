@@ -69,7 +69,7 @@ const getProductById = async (id: string) => {
     const response = await serverFetch(`/products/${id}`, {
       method: "GET",
     });
-    return response.data.data;
+    return response;
   } catch (error: any) {
     console.error("Error fetching product:", error);
     if (error.response && error.response.data) {
