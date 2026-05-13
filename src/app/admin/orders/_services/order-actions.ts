@@ -6,7 +6,7 @@ const getOrders = async (page: number, limit: number, search: string) => {
       `/orders?page=${page}&limit=${limit}&search=${search}`,
       { method: "GET" },
     );
-    return response.data;
+    return response;
   } catch (error: any) {
     console.error("Error fetching products:", error);
 
