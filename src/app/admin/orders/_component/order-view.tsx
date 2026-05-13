@@ -12,7 +12,7 @@ export default function OrderView({ orderId }: Props) {
   const { order, isLoading } = useOrderById(orderId);
   const { mutate, isPending } = useUpdateOrder();
   const [showConfirm, setShowConfirm] = useState(false);
-
+console.log("Order data in OrderView:", order); // Debug log to inspect the fetched order data
   if (isLoading) return <Loading />;
 
   if (!order)
