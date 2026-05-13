@@ -34,7 +34,7 @@ const getCategories = async (page: number, limit: number, search: string) => {
     if (!response.data.success) {
       throw new Error(response.data.message || "Failed to fetch categories");
     }
-    return response.data; // Assuming the categories are in the 'data' field of the response
+    return response; // Assuming the categories are in the 'data' field of the response
   } catch (error: any) {
     console.error("Error fetching products:", error);
     if (error.response && error.response.data) {
