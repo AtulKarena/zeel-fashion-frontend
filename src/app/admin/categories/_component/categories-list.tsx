@@ -30,7 +30,6 @@ export default function CategoriesList() {
     return () => clearTimeout(delay);
   }, [searchInput]);
   const { data, isLoading } = useCategories(page, limit, search);
-console.log("Categories data:", data); // Debug log to inspect the fetched categories data
   const handleConfirmDelete = async () => {
     if (deleteConfirmId) {
       await deleteCategory.mutateAsync(deleteConfirmId);

@@ -55,7 +55,6 @@ export const useCategories = (page: number, limit: number, search: string) => {
   if (error) {
     toast.error(error.message);
   }
-  console.log("Categories data in hook:", data); // Debug log to inspect the fetched categories data
   return {
     data,
     isLoading,
