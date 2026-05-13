@@ -41,8 +41,9 @@ export const useOrderById = (id: string) => {
     queryKey: ["order", id],
     queryFn: () => orderActions.getOrderById(id),
   });
+  console.log("Fetched order data:", data.data); // Debug log to inspect the fetched order data
   return {
-    order: data.data as Order,
+    order: data as Order,
     isLoading,
     error,
   };
