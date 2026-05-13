@@ -39,7 +39,6 @@ export default function AdminDashboard() {
   if (isLoading) {
     return <Loading/>;
   }
-  console.log("isLoad:-", isLoad);
   return (
     <div className="space-y-8">
       <header className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-indigo-600 to-pink-500 p-6 text-white shadow-md">

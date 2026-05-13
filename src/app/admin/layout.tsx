@@ -16,7 +16,6 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const token = (await cookies()).get("token")?.value;
-console.log("AdminLayout token:", (await cookies()).get("token"));
   if (!token) {
     redirect("/login");
   }

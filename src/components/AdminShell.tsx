@@ -74,7 +74,7 @@ export default function AdminShell({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-[#f7f7fb] to-[#f3f6ff]">
-      <div className="mx-auto grid max-w-7xl gap-6 px-6 py-8 lg:grid-cols-[220px_1fr]">
+      <div className="mx-auto grid  gap-6 px-6 py-8 lg:grid-cols-[220px_1fr]">
         <aside className="sticky top-6 h-fit rounded-2xl bg-white/60 p-4 shadow-md backdrop-blur-sm">
           <div className="px-2">
             <div className="mb-4 flex items-center gap-3">
