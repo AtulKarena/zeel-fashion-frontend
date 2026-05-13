@@ -8,6 +8,7 @@ import Script from "next/script";
 import { useCart } from "@/context/cart-context";
 import { useAuth } from "@/context/auth-context";
 import { redirect } from "next/navigation";
+import { serverFetch } from "@/lib/server-fetch";
 
 export default function Payment() {
   const params = useSearchParams();
@@ -31,12 +32,10 @@ export default function Payment() {
   };
 
   const handleOnlinePayment = async () => {
-  
-    API.post(
-      "/payment/create-order",
-      { orderId, amount: total },
-      { withCredentials: true },
-    )
+    serverFetch("/payment/create-order", {
+      method: "POST",
+      body: JSON.stringify({ orderId, amount: total }),
+    })
       .then((data) => {
         setItems([]);
         const options = {
@@ -49,14 +48,10 @@ export default function Payment() {
           description: "Order Payment",
 
           handler: async function (response: any) {
-            API.post(
-              "/payment/verify",
-              {
-                ...response,
-                orderId,
-              },
-              { withCredentials: true },
-            )
+            serverFetch("/payment/verify", {
+              method: "POST",
+              body: JSON.stringify({ ...response, orderId }),
+            })
               .then((data) => {
                 router.push(
                   `/checkout/success?session_id=${data.data.session_id}`,

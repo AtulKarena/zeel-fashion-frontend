@@ -1,12 +1,13 @@
 import { z } from "zod";
 import API from "@/services/api";
+import { serverFetch } from "@/lib/server-fetch";
 
 const getDashboard = async () => {
   try {
-    const response = await API.get(`/dashboard/stats`, {
-      withCredentials: true,
+    const response = await serverFetch(`/dashboard/stats`, {
+      method: "GET",
     });
-    return response.data.data;
+    return response.data;
   } catch (error: any) {
     console.error("Error fetching dashboard state:", error);
     if (error.response && error.response.data) {
@@ -19,10 +20,10 @@ const getDashboard = async () => {
 
 const getLatestOrders = async () => {
   try {
-    const response = await API.get(`/dashboard/latestOrders`, {
-      withCredentials: true,
+    const response = await serverFetch(`/dashboard/latestOrders`, {
+      method: "GET",
     });
-    return response.data.data;
+    return response.data;
   } catch (error: any) {
     console.error("Error fetching dashboard state:", error);
     if (error.response && error.response.data) {

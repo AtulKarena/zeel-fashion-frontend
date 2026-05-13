@@ -1,10 +1,10 @@
 import API from "@/services/api";
-
+import { serverFetch } from "@/lib/server-fetch";
 const getInventory = async (page: number, limit: number, search: string) => {
   try {
-    const response = await API.get(
+    const response = await serverFetch(
       `/products/inventory?page=${page}&limit=${limit}&search=${search}`,
-      { withCredentials: true },
+      { method: "GET" },
     );
     return response.data;
   } catch (error: any) {
@@ -24,15 +24,10 @@ const updateStock = async (
   type: "add" | "reduce",
 ) => {
   try {
-    const response = await API.put(
-      `/products/inventory/update-stock`,
-      {
-        productId,
-        quantity,
-        type,
-      },
-      { withCredentials: true },
-    );
+    const response = await serverFetch(`/products/inventory/update-stock`, {
+      method: "PUT",
+      body: JSON.stringify({ productId, quantity, type }),
+    });
 
     return response.data;
   } catch (error: any) {

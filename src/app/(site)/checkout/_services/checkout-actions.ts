@@ -1,13 +1,14 @@
 import API from "@/services/api";
 import { z } from "zod";
 import checkoutSchema from "./checkout-schema";
-
+import { serverFetch } from "@/lib/server-fetch";
 const createOrder = async (
   body: z.infer<typeof checkoutSchema.createOrderSchema>,
 ) => {
   try {
-    const response = await API.post("/orders", body, {
-      withCredentials: true,
+    const response = await serverFetch("/orders", {
+      method: "POST",
+      body: JSON.stringify(body),
     });
     return response.data;
   } catch (error: any) {

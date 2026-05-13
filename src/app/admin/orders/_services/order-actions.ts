@@ -1,10 +1,10 @@
 import API from "@/services/api";
-
+import { serverFetch } from "@/lib/server-fetch";
 const getOrders = async (page: number, limit: number, search: string) => {
   try {
-    const response = await API.get(
+    const response = await serverFetch(
       `/orders?page=${page}&limit=${limit}&search=${search}`,
-      { withCredentials: true },
+      { method: "GET" },
     );
     return response.data;
   } catch (error: any) {
@@ -19,8 +19,8 @@ const getOrders = async (page: number, limit: number, search: string) => {
 };
 
 const deleteProduct = async (id: string) => {
-  const response = await API.delete(`/orders/${id}`, {
-    withCredentials: true,
+  const response = await serverFetch(`/orders/${id}`, {
+    method: "DELETE",
   });
 
   return response.data;
@@ -28,8 +28,8 @@ const deleteProduct = async (id: string) => {
 
 const getOrderById = async (id: string) => {
   try {
-    const response = await API.get(`/orders/${id}`, {
-      withCredentials: true,
+    const response = await serverFetch(`/orders/${id}`, {
+      method: "GET",
     });
     return response.data.data;
   } catch (error: any) {
@@ -44,13 +44,10 @@ const getOrderById = async (id: string) => {
 
 const updateOrderById = async (id: string, isDelivered: boolean) => {
   try {
-    const response = await API.put(
-      `/orders`,
-      { id, isDelivered },
-      {
-        withCredentials: true,
-      },
-    );
+    const response = await serverFetch(`/orders`, {
+      method: "PUT",
+      body: JSON.stringify({ id, isDelivered }),
+    });
     return response.data.data;
   } catch (error: any) {
     console.error("Error fetching product:", error);

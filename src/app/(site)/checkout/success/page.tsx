@@ -3,14 +3,12 @@ import { useState } from "react"; */
 import Link from "next/link";
 import API from "@/services/api";
 import { redirect } from "next/navigation";
-
+import { serverFetch } from "@/lib/server-fetch";
 async function verifySession(session_id: string) {
   try {
-    const data = await API.post(
-      `/payment/verify-session/${session_id}`,
-      {},
-      { withCredentials: true }
-    );
+    const data = await serverFetch(`/payment/verify-session/${session_id}`, {
+      method: "POST",
+    });
     return data.data.valid;
   } catch (error) {
     console.error("Error verifying access to the success page:", error);
@@ -111,5 +109,3 @@ export default async function Preview({
     </div>
   );
 }
-
-

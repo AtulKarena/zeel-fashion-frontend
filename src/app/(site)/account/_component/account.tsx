@@ -8,6 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useCarts } from "@/components/_services/cart-hooks";
 import { useAuth } from "@/context/auth-context";
 import { useProfile } from "../_services/account-hooks";
+import { serverFetch } from "@/lib/server-fetch";
 
 export default function Account() {
   // Mock user state (replace with real auth later)
@@ -22,7 +23,9 @@ export default function Account() {
 
   const handleLogout = async () => {
     try {
-      await API.post("/auth/logout", {}, { withCredentials: true });
+      await serverFetch("/auth/logout", {
+        method: "POST",
+      });
 
       setIsLoggedIn(false);
 

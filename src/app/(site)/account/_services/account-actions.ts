@@ -1,14 +1,12 @@
 import { z } from "zod";
 import API from "@/services/api";
 import profileSchema from "./profile-schema";
+import { serverFetch } from "@/lib/server-fetch";
 
 const getProfile = async () => {
   try {
-    const response = await API.get(
-      `/profile`,
-      { withCredentials: true },
-    );
-    return response.data.data;
+    const response = await serverFetch(`/profile`, { method: "GET" });
+    return response.data;
   } catch (error: any) {
     console.error("Error fetching profile:", error);
 
@@ -20,13 +18,13 @@ const getProfile = async () => {
   }
 };
 
-
 const updateProfile = async (
   body: z.infer<typeof profileSchema.updateUserSchema>,
 ) => {
   try {
-    const response = await API.put(`/profile/update-profile`, body, {
-      withCredentials: true,
+    const response = await serverFetch(`/profile/update-profile`, {
+      method: "PUT",
+      body: JSON.stringify(body),
     });
     return response.data;
   } catch (error: any) {

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import API from "@/services/api";
 import productSchema from "./product-schema";
+import { serverFetch } from "@/lib/server-fetch";
 
 const addProduct = async (
   body: z.infer<typeof productSchema.productAddSchema>,
@@ -26,8 +27,9 @@ const addProduct = async (
       formData.append("images", file);
     });
 
-    const response = await API.post("/products", formData, {
-      withCredentials: true,
+    const response = await serverFetch("/products", {
+      method: "POST",
+      body: JSON.stringify(formData),
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -46,9 +48,9 @@ const addProduct = async (
 
 const getProducts = async (page: number, limit: number, search: string) => {
   try {
-    const response = await API.get(
+    const response = await serverFetch(
       `/products?page=${page}&limit=${limit}&search=${search}`,
-      { withCredentials: true },
+      { method: "GET" },
     );
     return response.data;
   } catch (error: any) {
@@ -64,8 +66,8 @@ const getProducts = async (page: number, limit: number, search: string) => {
 
 const getProductById = async (id: string) => {
   try {
-    const response = await API.get(`/products/${id}`, {
-      withCredentials: true,
+    const response = await serverFetch(`/products/${id}`, {
+      method: "GET",
     });
     return response.data.data;
   } catch (error: any) {
@@ -80,9 +82,8 @@ const getProductById = async (id: string) => {
 
 const getProductsByCategory = async () => {
   try {
-    const response = await API.get("/products/home", { withCredentials: true });
-    console.log("response:-", response.data);
-    return response.data.data;
+    const response = await serverFetch("/products/home", { method: "GET" });
+    return response.data;
   } catch (error: any) {
     console.error("Error fetching products by category:", error.response);
 
@@ -95,8 +96,8 @@ const getProductsByCategory = async () => {
 };
 
 const deleteProduct = async (id: string) => {
-  const response = await API.delete(`/products/${id}`, {
-    withCredentials: true,
+  const response = await serverFetch(`/products/${id}`, {
+    method: "DELETE",
   });
 
   return response.data;
@@ -126,8 +127,9 @@ const updateProduct = async (
       formData.append("images", file);
     });
 
-    const response = await API.put(`/products/${id}`, formData, {
-      withCredentials: true,
+    const response = await serverFetch(`/products/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(formData),
       headers: {
         "Content-Type": "multipart/form-data",
       },

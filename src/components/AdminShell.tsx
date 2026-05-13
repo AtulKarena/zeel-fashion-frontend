@@ -10,8 +10,9 @@ import {
   ListOrdered,
   BadgeIndianRupee,
   Grid2X2,
-  CirclePile
+  CirclePile,
 } from "lucide-react";
+import { serverFetch } from "@/lib/server-fetch";
 
 const menu = [
   {
@@ -61,7 +62,7 @@ export default function AdminShell({
   const router = useRouter();
 
   const handleLogout = () => {
-    API.post("/auth/logout", {}, { withCredentials: true })
+    serverFetch("/auth/logout", { method: "POST" })
       .then(() => {
         router.replace("/login");
       })
@@ -103,7 +104,7 @@ export default function AdminShell({
                     }`}
                   >
                     <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-black/5">
-                       <item.icon className="h-4 w-4" />
+                      <item.icon className="h-4 w-4" />
                     </span>
                     <span className="font-medium">{item.label}</span>
                   </Link>

@@ -73,8 +73,9 @@ const logout = async () => {
 
 const signup = async (body: z.infer<typeof authSchema.signUpSchema>) => {
   try {
-    const response = await API.post("/auth/register", body, {
-      withCredentials: true,
+    const response = await serverFetch("/auth/register", {
+      method: "POST",
+      body: JSON.stringify(body),
     });
 
     return response.data;
@@ -90,13 +91,10 @@ const signup = async (body: z.infer<typeof authSchema.signUpSchema>) => {
 
 const mergeCart = async (cartItems: any[], mergeMode: string) => {
   try {
-    const response = await API.put(
-      "/cart/merge",
-      { items: cartItems, mergeMode },
-      {
-        withCredentials: true,
-      },
-    );
+    const response = await serverFetch("/cart/merge", {
+      method: "PUT",
+      body: JSON.stringify({ items: cartItems, mergeMode }),
+    });
     return response.data;
   } catch (error: any) {
     console.error("Error merging cart:", error);

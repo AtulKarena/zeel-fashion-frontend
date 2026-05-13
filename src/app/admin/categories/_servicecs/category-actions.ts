@@ -1,13 +1,14 @@
 import { z } from "zod";
 import API from "@/services/api";
 import categorySchema from "./categorySchema";
-
+import { serverFetch } from "@/lib/server-fetch";
 const createCategory = async (
   body: z.infer<typeof categorySchema.categorySchema>,
 ) => {
   try {
-    const response = await API.post("/categories", body, {
-      withCredentials: true,
+    const response = await serverFetch("/categories", {
+      method: "POST",
+      body: JSON.stringify(body),
     });
 
     return response.data;
@@ -25,9 +26,9 @@ const createCategory = async (
 
 const getCategories = async (page: number, limit: number, search: string) => {
   try {
-    const response = await API.get(
+    const response = await serverFetch(
       `/categories?page=${page}&limit=${limit}&search=${search}`,
-      { withCredentials: true },
+      { method: "GET" },
     );
     if (!response.data.success) {
       throw new Error(response.data.message || "Failed to fetch categories");
@@ -45,8 +46,8 @@ const getCategories = async (page: number, limit: number, search: string) => {
 
 const getAllCategories = async () => {
   try {
-    const response = await API.get(`/categories/all`, {
-      withCredentials: true,
+    const response = await serverFetch(`/categories/all`, {
+      method: "GET",
     });
     if (!response.data.success) {
       throw new Error(response.data.message || "Failed to fetch categories");
@@ -67,8 +68,9 @@ const updateCategory = async (
   body: z.infer<typeof categorySchema.categorySchema>,
 ) => {
   try {
-    const response = await API.put(`/categories/${id}`, body, {
-      withCredentials: true,
+    const response = await serverFetch(`/categories/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(body),
     });
     return response.data;
   } catch (error) {
@@ -79,8 +81,8 @@ const updateCategory = async (
 
 const deleteCategory = async (id: string) => {
   try {
-    const response = await API.delete(`/categories/${id}`, {
-      withCredentials: true,
+    const response = await serverFetch(`/categories/${id}`, {
+      method: "DELETE",
     });
     return response.data;
   } catch (error) {

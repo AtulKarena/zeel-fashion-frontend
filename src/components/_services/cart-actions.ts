@@ -22,8 +22,8 @@ const addToCart = async (body: z.infer<typeof cartSchema.addToCartSchema>) => {
 
 const getCart = async () => {
   try {
-    const response = await API.get("/cart", { withCredentials: true });
-    return response.data.data;
+    const response = await serverFetch("/cart", { method: "GET" });
+    return response.data;
   } catch (error: any) {
     console.error("Error fetching cart:", error);
     if (error.response && error.response.data) {
@@ -36,8 +36,8 @@ const getCart = async () => {
 
 const removeFromCart = async (productId: string) => {
   try {
-    const response = await API.delete(`/cart/${productId}`, {
-      withCredentials: true,
+    const response = await serverFetch(`/cart/${productId}`, {
+      method: "DELETE",
     });
     return response.data;
   } catch (error: any) {
@@ -54,8 +54,9 @@ const updateCartItemQuantity = async (
   body: z.infer<typeof cartSchema.updateCartItemQuantitySchema>,
 ) => {
   try {
-    const response = await API.post(`/cart/quantity`, body, {
-      withCredentials: true,
+    const response = await serverFetch(`/cart/quantity`, {
+      method: "POST",
+      body: JSON.stringify(body),
     });
     return response.data;
   } catch (error: any) {
@@ -73,8 +74,8 @@ const updateCartItemQuantity = async (
 
 const clearCart = async () => {
   try {
-    const response = await API.delete("/cart", {
-      withCredentials: true,
+    const response = await serverFetch("/cart", {
+      method: "DELETE",
     });
     return response.data;
   } catch (error: any) {

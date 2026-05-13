@@ -17,6 +17,8 @@ import {
 import { useAuth } from "./auth-context";
 import API from "@/services/api";
 import { toast } from "sonner";
+import { serverFetch } from "@/lib/server-fetch";
+
 type Category = {
   _id: string;
   name: string;
@@ -101,9 +103,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         window.localStorage.removeItem(STORAGE_KEY);
       }
     } else {
-      API.get("/cart", { withCredentials: true })
+      serverFetch("/cart", { method: "GET" })
         .then(({ data }) => {
-          setItems(data.data?.items || []);
+          setItems(data?.items || []);
         })
         .catch((error) => {
           console.error("Cart error:", error);

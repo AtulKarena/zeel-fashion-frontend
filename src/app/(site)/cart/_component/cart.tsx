@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import API from "@/services/api";
 import { toast } from "sonner";
 import { useAuth } from "@/context/auth-context";
+import { serverFetch } from "@/lib/server-fetch";
 
 export default function Cart({ isLoggedIn }: { isLoggedIn: boolean }) {
   const { items, total, clearCart } = useCart();
@@ -21,13 +22,12 @@ export default function Cart({ isLoggedIn }: { isLoggedIn: boolean }) {
       return;
     }
 
-    API.post(
+    serverFetch(
       "/checkout/session",
-      { cart: items }, // body (empty if not needed)
-      { withCredentials: true }, // ✅ correct place
+      { method: "POST", body: JSON.stringify({ cart: items }) }, // body (empty if not needed)
     )
       .then((response) => {
-        const token = response?.data?.checkoutToken;
+        const token = response?.checkoutToken;
 
         if (!token) {
           throw new Error("No checkout token received");
@@ -41,7 +41,7 @@ export default function Cart({ isLoggedIn }: { isLoggedIn: boolean }) {
         toast.error("Failed to start checkout. Please try again.");
       });
   };
-  
+
   return (
     <div className="mx-auto max-w-6xl space-y-10 px-6 py-12">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">

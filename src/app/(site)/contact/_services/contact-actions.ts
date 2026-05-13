@@ -1,13 +1,15 @@
 import { z } from "zod";
 import API from "@/services/api";
 import contactSchema from "./contact-schema";
+import { serverFetch } from "@/lib/server-fetch";
 
 const saveContact = async (
   body: z.infer<typeof contactSchema.saveContactSchema>,
 ) => {
   try {
-    const response = await API.post("/contacts", body, {
-      withCredentials: true,
+    const response = await serverFetch("/contacts", {
+      method: "POST",
+      body: JSON.stringify(body),
     });
     return response.data;
   } catch (error: any) {
