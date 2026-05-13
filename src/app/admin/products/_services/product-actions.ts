@@ -52,7 +52,6 @@ const getProducts = async (page: number, limit: number, search: string) => {
       `/products?page=${page}&limit=${limit}&search=${search}`,
       { method: "GET" },
     );
-    console.log("Products response:", response); // Debug log to inspect the response structure
     return response.data;
   } catch (error: any) {
     console.error("Error fetching products:", error);
