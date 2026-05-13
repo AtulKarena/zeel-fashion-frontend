@@ -48,7 +48,7 @@ const updateOrderById = async (id: string, isDelivered: boolean) => {
       method: "PUT",
       body: JSON.stringify({ id, isDelivered }),
     });
-    return response.data.data;
+    return response;
   } catch (error: any) {
     console.error("Error fetching product:", error);
     if (error.response && error.response.data) {

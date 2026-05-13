@@ -43,7 +43,7 @@ export default function OrderView({ orderId }: Props) {
               </h2>
               <p>
                 <span className="text-gray-500">Name:</span>{" "}
-                {order.contactInformation.name}
+                {order?.contactInformation?.name}
               </p>
               <p>
                 <span className="text-gray-500">Email:</span>{" "}
