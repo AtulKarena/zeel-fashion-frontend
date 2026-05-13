@@ -2,11 +2,12 @@ import API from "@/services/api";
 import { z } from "zod";
 import cartSchema from "./cart-schema";
 import axios from "axios";
-
+import { serverFetch } from "@/lib/server-fetch";
 const addToCart = async (body: z.infer<typeof cartSchema.addToCartSchema>) => {
   try {
-    const response = await API.post("/cart", body, {
-      withCredentials: true,
+    const response = await serverFetch("/cart", {
+      method: "POST",
+      body: JSON.stringify(body),
     });
     return response.data;
   } catch (error: any) {
