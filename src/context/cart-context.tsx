@@ -105,6 +105,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     } else {
       serverFetch("/cart", { method: "GET" })
         .then(({ data }) => {
+          console.log("Fetched cart from server:", data);
           setItems(data?.items || []);
         })
         .catch((error) => {
