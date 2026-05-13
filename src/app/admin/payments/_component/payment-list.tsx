@@ -26,7 +26,6 @@ export default function PaymentsList() {
   }, [searchInput]);
 
   const { data, isLoading } = usePayments(page, limit, search);
-console.log("Payments data:", data); // Debug log to inspect the fetched payments data
   const handleConfirmDelete = async () => {
     if (deleteConfirmId) {
       await deletePayment.mutateAsync(deleteConfirmId);
