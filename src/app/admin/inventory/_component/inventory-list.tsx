@@ -57,7 +57,7 @@ export default function InventoryList() {
     return () => clearTimeout(delay);
   }, [searchInput]);
   const { data, isLoading } = useInventory(page, limit, search);
-
+console.log("Inventory data:", data); // Debug log to inspect the fetched inventory data structure
   useEffect(() => {
     if (!isUpdating) {
       setIsModalOpen(false);
