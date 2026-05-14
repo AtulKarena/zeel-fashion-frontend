@@ -41,7 +41,7 @@ const deletePayment = async (id: string) => {
     method: "DELETE",
   });
 
-  return response.data;
+  return response;
 };
 
 export default {
