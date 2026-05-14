@@ -6,7 +6,7 @@ const getInventory = async (page: number, limit: number, search: string) => {
       `/products/inventory?page=${page}&limit=${limit}&search=${search}`,
       { method: "GET" },
     );
-    return response.data;
+    return response;
   } catch (error: any) {
     console.error("Error fetching inventory:", error);
 
